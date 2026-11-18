@@ -46,11 +46,13 @@ jobs:
       - name: Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v6.0.0
+        continue-on-error: true
         with:
           enablement: true
       - name: Build with Jekyll
-        # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        # Outputs to the './_site' directory by default.
+        # The site url/baseurl are defined in _config.yml.
+        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
       - name: Upload GitHub Pages artifact
